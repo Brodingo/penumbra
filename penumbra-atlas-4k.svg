@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+  <defs>
+    <linearGradient id="paper" x2="0.9" y2="1">
+      <stop stop-color="#f2e8cc"/>
+      <stop offset=".52" stop-color="#e7d8b7"/>
+      <stop offset="1" stop-color="#d7c49c"/>
+    </linearGradient>
+    <linearGradient id="sea" x2=".15" y2="1">
+      <stop stop-color="#c5d6ca"/>
+      <stop offset=".55" stop-color="#afc7c0"/>
+      <stop offset="1" stop-color="#9ebbb6"/>
+    </linearGradient>
+    <linearGradient id="land" x2=".2" y2="1">
+      <stop stop-color="#e8e1bd"/>
+      <stop offset=".48" stop-color="#d6d9ac"/>
+      <stop offset="1" stop-color="#c9c89b"/>
+    </linearGradient>
+    <linearGradient id="mountain" x2=".25" y2="1">
+      <stop stop-color="#8f9982"/>
+      <stop offset=".42" stop-color="#626e61"/>
+      <stop offset="1" stop-color="#c1b895"/>
+    </linearGradient>
+    <linearGradient id="desert" x2=".7" y2="1">
+      <stop stop-color="#e9d578"/>
+      <stop offset="1" stop-color="#cfad54"/>
+    </linearGradient>
+    <pattern id="paper-grain" width="170" height="170" patternUnits="userSpaceOnUse">
+      <path d="M12 38h1m47 75h1m78-96h1m-21 131h1M30 151h1m97-39h1m-88-85h1" stroke="#755e3e" stroke-opacity=".15" stroke-width="3"/>
+      <path d="M20 88l17-2m82 70 23-3M98 23l14 2" stroke="#fff9e9" stroke-opacity=".35" stroke-width="2"/>
+    </pattern>
+    <pattern id="sea-lines" width="180" height="105" patternUnits="userSpaceOnUse">
+      <path d="M8 28c21-13 42-13 63 0s42 13 63 0m-94 48c17-10 34-10 51 0s34 10 51 0" fill="none" stroke="#f2f1d8" stroke-opacity=".52" stroke-width="3"/>
+      <path d="M142 62h26" stroke="#779b94" stroke-opacity=".35" stroke-width="2"/>
+    </pattern>
+    <pattern id="lowland-lines" width="90" height="70" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 12h90M0 38h90M0 64h90" stroke="#7e8c67" stroke-opacity=".26" stroke-width="2"/>
+    </pattern>
+    <pattern id="desert-dots" width="56" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="12" r="2.7" fill="#9d773e" opacity=".42"/>
+      <circle cx="35" cy="32" r="2" fill="#9d773e" opacity=".34"/>
+    </pattern>
+    <pattern id="forest-canopy" width="80" height="65" patternUnits="userSpaceOnUse">
+      <path d="M10 19l9-12 9 12-9 12zm37 27 9-12 9 12-9 12zM54 12l6-8 6 8-6 8z" fill="#355c42" opacity=".48"/>
+      <path d="M19 31v8m37 7v8" stroke="#355c42" stroke-opacity=".35" stroke-width="2"/>
+    </pattern>
+    <pattern id="mountain-hatch" width="44" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)">
+      <path d="M0 5h25m-13 13h32m-31 13h18" stroke="#f0e5c4" stroke-opacity=".56" stroke-width="3"/>
+    </pattern>
+    <filter id="soft-shadow" x="-.2" y="-.2" width="1.4" height="1.5">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="9"/>
+      <feOffset dx="8" dy="13" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="watercolor" x="-.1" y="-.1" width="1.2" height="1.2">
+      <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8"/>
+    </filter>
+    <clipPath id="land-clip">
+      <path id="land-shape" d="M23 32
+        C27 23 37 19 47 23 L59 28 68 20 68 12 78 7 91 10 99 18 115 20 126 27
+        139 43 159 47 174 48 191 45 211 48 231 51 251 55 263 64 267 76 274 82
+        295 79 313 78 328 82 341 78 355 79 368 88 381 86 393 82 405 85 414 91
+        425 88 432 75 434 59 440 48 449 50 455 64 458 82 476 88 496 89 516 94
+        528 103 543 108 554 119 566 127 566 143 556 153 562 163 557 176 562 187
+        557 199 543 205 527 205 514 212 500 215 489 226 479 235 468 240 460 255
+        456 272 450 289 444 303 438 290 435 272 428 256 418 250 409 259 403 275
+        397 289 390 282 386 267 380 255 371 248 361 242 352 251 345 265 337 276
+        331 296 326 319 319 331 310 326 302 310 294 294 284 281 274 276 263 278
+        252 268 240 256 229 250 216 246 204 250 195 257 185 265 177 277 165 282
+        153 281 144 274 136 277 127 288 119 299 111 309 103 306 99 293 95 280
+        88 274 78 270 70 260 65 249 57 239 48 230 39 224 31 228 27 238 28 249
+        36 258 32 265 23 264 21 255 24 244 21 234 28 223 35 218 43 220 50 227
+        57 233 63 229 65 219 69 210 74 203 71 192 64 182 54 178 43 179 34 174
+        26 165 21 153 23 142 27 130 34 119 40 109 36 99 30 88 25 76 20 64 19 52
+        21 42 17 36Z"/>
+    </clipPath>
+    <g id="tree">
+      <path d="M0 0l11-19 11 19h-7l10 15H-3L7 0z" fill="#416347" stroke="#294d39" stroke-width="1.5"/>
+      <path d="M11 13v7" stroke="#725c3d" stroke-width="2"/>
+    </g>
+    <g id="peak">
+      <path d="M0 37 28-2l14 22 17-34 34 51z" fill="url(#mountain)" stroke="#596457" stroke-width="3"/>
+      <path d="m18 13 10-15 9 12 12-22 8 14 8 19-16-9-9 12-12-10z" fill="#e9e3cb" opacity=".9"/>
+      <path d="m8 31 17-14m12 19 20-23m4 18 21-18" fill="none" stroke="#f4eccf" stroke-opacity=".66" stroke-width="3"/>
+    </g>
+  </defs>
+
+  <rect width="3840" height="2160" fill="url(#paper)"/>
+  <rect width="3840" height="2160" fill="url(#paper-grain)" opacity=".8"/>
+  <rect x="48" y="48" width="3744" height="2064" rx="8" fill="none" stroke="#66563b" stroke-width="8"/>
+  <rect x="70" y="70" width="3700" height="2020" rx="5" fill="none" stroke="#96784e" stroke-width="3"/>
+  <path d="M88 180h115m-115 30h68M3637 1940h115m-115 30h68" stroke="#96784e" stroke-width="4"/>
+
+  <text x="155" y="152" fill="#324c3c" font-family="Georgia,serif" font-size="27" letter-spacing="9">PENUMBRA FIELD NOTES  /  CARTOGRAPHIC SERIES</text>
+  <text x="150" y="268" fill="#283d32" font-family="Georgia,serif" font-size="92" font-weight="bold" letter-spacing="5">GIOVIA</text>
+  <path d="M158 296h920m-920 12h370" stroke="#9e7950" stroke-width="4"/>
+  <text x="158" y="345" fill="#715d43" font-family="Georgia,serif" font-size="27" font-style="italic" letter-spacing="3">A continent in the realm of TERA — Thod Empire Reform Authority</text>
+
+  <g transform="translate(480 390) scale(4.95)">
+    <path d="M23 32
+      C27 23 37 19 47 23 L59 28 68 20 68 12 78 7 91 10 99 18 115 20 126 27
+      139 43 159 47 174 48 191 45 211 48 231 51 251 55 263 64 267 76 274 82
+      295 79 313 78 328 82 341 78 355 79 368 88 381 86 393 82 405 85 414 91
+      425 88 432 75 434 59 440 48 449 50 455 64 458 82 476 88 496 89 516 94
+      528 103 543 108 554 119 566 127 566 143 556 153 562 163 557 176 562 187
+      557 199 543 205 527 205 514 212 500 215 489 226 479 235 468 240 460 255
+      456 272 450 289 444 303 438 290 435 272 428 256 418 250 409 259 403 275
+      397 289 390 282 386 267 380 255 371 248 361 242 352 251 345 265 337 276
+      331 296 326 319 319 331 310 326 302 310 294 294 284 281 274 276 263 278
+      252 268 240 256 229 250 216 246 204 250 195 257 185 265 177 277 165 282
+      153 281 144 274 136 277 127 288 119 299 111 309 103 306 99 293 95 280
+      88 274 78 270 70 260 65 249 57 239 48 230 39 224 31 228 27 238 28 249
+      36 258 32 265 23 264 21 255 24 244 21 234 28 223 35 218 43 220 50 227
+      57 233 63 229 65 219 69 210 74 203 71 192 64 182 54 178 43 179 34 174
+      26 165 21 153 23 142 27 130 34 119 40 109 36 99 30 88 25 76 20 64 19 52
+      21 42 17 36Z" fill="url(#sea)" stroke="#574b37" stroke-width="1.2" filter="url(#soft-shadow)"/>
+    <path d="M12 40h585v310H12z" fill="url(#sea-lines)" clip-path="url(#land-clip)" opacity=".92"/>
+
+    <g clip-path="url(#land-clip)">
+      <path d="M12 4h575v345H12z" fill="url(#land)"/>
+      <path d="M12 4h575v345H12z" fill="url(#lowland-lines)" opacity=".62"/>
+
+      <path d="M23 26 76 12 113 20 140 44 175 49 204 45 231 52 257 60 264 80 248 101 217 109 194 104 172 114 142 112 117 124 89 132 66 121 41 116 25 91Z" fill="#729567" opacity=".94" filter="url(#watercolor)"/>
+      <path d="M23 26 76 12 113 20 140 44 175 49 204 45 231 52 257 60 264 80 248 101 217 109 194 104 172 114 142 112 117 124 89 132 66 121 41 116 25 91Z" fill="url(#forest-canopy)" opacity=".76"/>
+      <path d="M278 81 308 77 342 78 368 87 392 82 412 91 426 87 432 64 444 48 454 77 478 88 494 92 519 98 538 113 564 128 562 158 543 164 515 166 491 160 476 168 453 160 433 165 411 154 391 157 370 147 350 155 331 148 311 141 292 128 276 111 269 94Z" fill="#628255" opacity=".97" filter="url(#watercolor)"/>
+      <path d="M278 81 308 77 342 78 368 87 392 82 412 91 426 87 432 64 444 48 454 77 478 88 494 92 519 98 538 113 564 128 562 158 543 164 515 166 491 160 476 168 453 160 433 165 411 154 391 157 370 147 350 155 331 148 311 141 292 128 276 111 269 94Z" fill="url(#forest-canopy)" opacity=".68"/>
+      <path d="M58 127 82 116 109 117 132 125 153 121 176 125 198 119 220 124 234 136 229 151 204 157 184 154 163 160 140 157 121 165 96 165 75 158 61 147Z" fill="url(#desert)" filter="url(#watercolor)"/>
+      <path d="M58 127 82 116 109 117 132 125 153 121 176 125 198 119 220 124 234 136 229 151 204 157 184 154 163 160 140 157 121 165 96 165 75 158 61 147Z" fill="url(#desert-dots)" opacity=".8"/>
+      <path d="M367 212 392 201 416 205 439 197 462 199 483 187 507 185 530 188 559 184 570 213 550 226 524 234 501 240 480 252 467 272 456 292 441 286 431 265 418 250 400 246 385 237Z" fill="url(#desert)" filter="url(#watercolor)"/>
+      <path d="M367 212 392 201 416 205 439 197 462 199 483 187 507 185 530 188 559 184 570 213 550 226 524 234 501 240 480 252 467 272 456 292 441 286 431 265 418 250 400 246 385 237Z" fill="url(#desert-dots)" opacity=".82"/>
+      <path d="M297 232 316 222 334 222 351 235 360 251 351 268 340 280 333 304 326 327 312 320 301 300 288 282 277 270 280 251Z" fill="#779166" opacity=".8"/>
+      <path d="M117 224 132 216 148 218 163 229 171 243 161 258 144 265 126 258 114 246Z" fill="#5b7c54"/>
+      <path d="M117 224 132 216 148 218 163 229 171 243 161 258 144 265 126 258 114 246Z" fill="url(#forest-canopy)"/>
+
+      <g fill="url(#mountain)" stroke="#646d5e" stroke-width="1.5">
+        <path d="M43 32 58 22 66 28 76 10 88 16 99 12 110 26 127 29 135 45 125 55 110 50 100 59 87 50 73 58 61 46 50 52Z"/>
+        <path d="M263 70 278 77 283 91 292 97 294 110 305 114 307 126 318 127 323 141 337 141 344 154 356 155 362 170 376 174 382 190 368 198 352 190 338 185 321 177 307 167 293 161 283 147 270 138 263 124 252 117 250 103 257 91Z"/>
+        <path d="M323 82 333 77 340 84 346 77 353 87 361 80 369 90 379 84 387 94 397 85 405 94 415 87 423 95 430 84 436 76 442 57 449 55 454 75 461 88 474 88 482 95 493 91 500 101 512 99 522 111 533 112 544 124 553 130 559 142 549 153 536 157 525 150 511 154 499 147 486 153 474 145 461 150 448 140 437 145 424 138 412 142 400 133 387 136 376 125 364 130 352 119 340 121 334 109 323 104Z"/>
+        <path d="M176 211 188 207 197 215 208 207 219 215 229 211 240 223 251 222 262 234 275 232 284 242 298 239 307 249 319 246 330 258 323 270 311 277 298 270 285 275 273 265 259 269 247 257 234 258 224 246 211 247 200 237 188 237 181 226Z"/>
+        <path d="M344 215 355 206 365 211 376 204 385 212 396 207 405 219 400 232 389 238 377 231 365 237 354 228Z"/>
+        <path d="M74 194 82 190 90 197 99 193 108 201 106 211 96 216 87 210 78 214Z"/>
+      </g>
+      <g fill="url(#mountain-hatch)" opacity=".8">
+        <path d="M43 32 58 22 66 28 76 10 88 16 99 12 110 26 127 29 135 45 125 55 110 50 100 59 87 50 73 58 61 46 50 52Z"/>
+        <path d="M263 70 278 77 283 91 292 97 294 110 305 114 307 126 318 127 323 141 337 141 344 154 356 155 362 170 376 174 382 190 368 198 352 190 338 185 321 177 307 167 293 161 283 147 270 138 263 124 252 117 250 103 257 91Z"/>
+        <path d="M323 82 333 77 340 84 346 77 353 87 361 80 369 90 379 84 387 94 397 85 405 94 415 87 423 95 430 84 436 76 442 57 449 55 454 75 461 88 474 88 482 95 493 91 500 101 512 99 522 111 533 112 544 124 553 130 559 142 549 153 536 157 525 150 511 154 499 147 486 153 474 145 461 150 448 140 437 145 424 138 412 142 400 133 387 136 376 125 364 130 352 119 340 121 334 109 323 104Z"/>
+        <path d="M176 211 188 207 197 215 208 207 219 215 229 211 240 223 251 222 262 234 275 232 284 242 298 239 307 249 319 246 330 258 323 270 311 277 298 270 285 275 273 265 259 269 247 257 234 258 224 246 211 247 200 237 188 237 181 226Z"/>
+      </g>
+
+      <g fill="none" stroke="#a9b48e" stroke-width="1.2" opacity=".56">
+        <path d="M28 105c38 26 65 5 95 19s53-9 79 8 44 16 66 7 36 13 58 16 39-2 60 13 49-4 71 8 50-8 88 7"/>
+        <path d="M29 112c35 22 63 4 91 17s49-8 75 8 41 13 63 5 37 13 58 12 41 1 61 14 46-5 72 8 49-7 87 5"/>
+        <path d="M32 117c33 18 60 4 86 15s48-8 73 7 39 12 62 4 36 13 57 10 42 1 63 13 44-5 73 8 48-5 84 4"/>
+        <path d="M45 181c34 19 63 12 86 25s49-2 72 14 48 9 70 25 42 5 61 20"/>
+        <path d="M47 187c34 16 60 12 83 23s48-2 70 13 47 9 68 23 40 6 59 18"/>
+      </g>
+
+      <g fill="none" stroke="#547c82" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M29 76c19 4 22 15 38 18s24-5 34 3 19 17 34 17 23-8 34 0 8 18 24 20 23-6 36 2 17 20 32 20 22-9 33-4 15 18 31 18 23-8 36 0 17 16 32 14 19-9 35-2 21 14 37 9 24-7 41-1 20 16 37 10 20-12 37-6 25 16 44 12 29-8 48-7"
+          stroke-width="2.2"/>
+        <path d="M30 148c18-4 21-16 37-15s21 11 35 8 20-10 33-5 15 17 31 17 20-10 34-4 16 18 33 17 23-12 38-7 12 17 28 19 27-9 40-3 15 17 32 16 23-10 36-4 14 17 31 16 20-10 35-2 21 14 37 11 22-9 39-4 21 16 41 11 26-9 45-6"
+          stroke-width="2.4"/>
+        <path d="M83 47c5 14 17 20 15 35s-13 16-10 31 15 17 14 30-10 17-6 29 14 15 13 27-8 18-3 29 13 13 14 24"
+          stroke-width="1.8"/>
+        <path d="M195 64c1 13 12 17 10 29s-12 14-9 26 16 16 14 27-9 17-5 28 13 14 12 27"
+          stroke-width="1.8"/>
+        <path d="M288 91c9 12 20 16 18 27s-15 15-11 27 19 14 17 27-14 16-10 28 15 13 16 24"
+          stroke-width="2"/>
+        <path d="M422 99c-5 14-17 17-15 29s15 15 13 27-14 16-10 28 14 15 11 28-11 16-7 28"
+          stroke-width="1.8"/>
+        <path d="M489 133c-9 10-24 12-25 23s14 16 11 27-17 13-16 25"
+          stroke-width="1.6"/>
+        <path d="M131 114c-6 13-18 17-14 29s16 15 14 27-13 17-8 29 15 14 12 26"
+          stroke-width="1.6"/>
+        <path d="M352 153c-6 10-17 15-13 25s16 11 15 21"
+          stroke-width="1.6"/>
+      </g>
+
+      <g fill="none" stroke="#8f5946" stroke-width="1.35" stroke-dasharray="2.2 2.4" opacity=".78" stroke-linecap="round">
+        <path d="M26 70c26 1 33 15 57 15s35-10 56-3 23 22 49 22 33-8 52 3 23 24 45 22 30-13 49-5 21 24 45 21 35-15 53-6 25 20 48 13 37-13 56-3 24 23 51 18"/>
+        <path d="M82 61c11 12 13 23 6 35m109-22c10 9 13 19 7 30m91-7c11 10 15 20 11 31m124-39c-9 12-12 24-7 35m-326 68c18-7 30-2 38 13m130-14c18-7 30-2 38 12m105-15c18-5 28 1 37 13"/>
+      </g>
+
+      <g fill="none" stroke="#416c77" stroke-width="1" opacity=".82">
+        <path d="M38 93h10m28 6h12m52 18h10m41 1h9m38 24h11m48 4h11m39 12h10m42 0h12m42-4h10m46 4h11m44 5h10M99 143h10m34 6h9m50 4h9m42 7h10m51 9h9m45 3h10m45 3h10m41 7h10"/>
+        <circle cx="77" cy="98" r="2"/><circle cx="179" cy="118" r="2"/><circle cx="301" cy="148" r="2"/><circle cx="432" cy="156" r="2"/><circle cx="515" cy="169" r="2"/>
+      </g>
+
+      <g opacity=".95">
+        <use href="#tree" transform="translate(45 76) scale(.65)"/>
+        <use href="#tree" transform="translate(117 83) scale(.7)"/>
+        <use href="#tree" transform="translate(157 96) scale(.6)"/>
+        <use href="#tree" transform="translate(192 75) scale(.66)"/>
+        <use href="#tree" transform="translate(224 94) scale(.65)"/>
+        <use href="#tree" transform="translate(300 104) scale(.62)"/>
+        <use href="#tree" transform="translate(333 96) scale(.72)"/>
+        <use href="#tree" transform="translate(370 111) scale(.64)"/>
+        <use href="#tree" transform="translate(395 101) scale(.6)"/>
+        <use href="#tree" transform="translate(475 119) scale(.64)"/>
+        <use href="#tree" transform="translate(512 131) scale(.62)"/>
+        <use href="#tree" transform="translate(141 235) scale(.75)"/>
+        <use href="#tree" transform="translate(158 244) scale(.62)"/>
+        <use href="#tree" transform="translate(130 248) scale(.6)"/>
+        <use href="#tree" transform="translate(315 261) scale(.62)"/>
+      </g>
+
+      <g>
+        <use href="#peak" transform="translate(66 14) scale(.58)"/>
+        <use href="#peak" transform="translate(255 91) scale(.54)"/>
+        <use href="#peak" transform="translate(293 115) scale(.57)"/>
+        <use href="#peak" transform="translate(336 101) scale(.55)"/>
+        <use href="#peak" transform="translate(399 78) scale(.53)"/>
+        <use href="#peak" transform="translate(427 56) scale(.47)"/>
+        <use href="#peak" transform="translate(460 111) scale(.46)"/>
+        <use href="#peak" transform="translate(190 208) scale(.53)"/>
+        <use href="#peak" transform="translate(230 220) scale(.52)"/>
+        <use href="#peak" transform="translate(264 230) scale(.5)"/>
+        <use href="#peak" transform="translate(303 238) scale(.47)"/>
+        <use href="#peak" transform="translate(355 207) scale(.45)"/>
+        <use href="#peak" transform="translate(437 247) scale(.46)"/>
+      </g>
+
+      <g fill="none" stroke="#56694d" stroke-opacity=".5" stroke-width="1.1">
+        <path d="M24 47c14-8 28-9 39-3s18 5 27 0m-59 13c14-8 28-9 39-3s18 5 27 0M290 88c21-10 36-9 52 0s31 8 47 0 31-9 48 0m-158 10c20-10 35-9 51 0s32 8 48 0 31-9 48 0"/>
+      </g>
+    </g>
+    <path d="M23 32
+      C27 23 37 19 47 23 L59 28 68 20 68 12 78 7 91 10 99 18 115 20 126 27
+      139 43 159 47 174 48 191 45 211 48 231 51 251 55 263 64 267 76 274 82
+      295 79 313 78 328 82 341 78 355 79 368 88 381 86 393 82 405 85 414 91
+      425 88 432 75 434 59 440 48 449 50 455 64 458 82 476 88 496 89 516 94
+      528 103 543 108 554 119 566 127 566 143 556 153 562 163 557 176 562 187
+      557 199 543 205 527 205 514 212 500 215 489 226 479 235 468 240 460 255
+      456 272 450 289 444 303 438 290 435 272 428 256 418 250 409 259 403 275
+      397 289 390 282 386 267 380 255 371 248 361 242 352 251 345 265 337 276
+      331 296 326 319 319 331 310 326 302 310 294 294 284 281 274 276 263 278
+      252 268 240 256 229 250 216 246 204 250 195 257 185 265 177 277 165 282
+      153 281 144 274 136 277 127 288 119 299 111 309 103 306 99 293 95 280
+      88 274 78 270 70 260 65 249 57 239 48 230 39 224 31 228 27 238 28 249
+      36 258 32 265 23 264 21 255 24 244 21 234 28 223 35 218 43 220 50 227
+      57 233 63 229 65 219 69 210 74 203 71 192 64 182 54 178 43 179 34 174
+      26 165 21 153 23 142 27 130 34 119 40 109 36 99 30 88 25 76 20 64 19 52
+      21 42 17 36Z" fill="none" stroke="#544a38" stroke-width="1.5" stroke-linejoin="round"/>
+  </g>
+
+  <g transform="translate(3530 138)">
+    <circle r="82" fill="#eee5ca" fill-opacity=".72" stroke="#756045" stroke-width="3"/>
+    <circle r="68" fill="none" stroke="#a3875c" stroke-width="2"/>
+    <path d="M0-57 12-8 0 0-12-8zM0 57-12 8 0 0 12 8zM-57 0-8-12 0 0-8 12zM57 0 8 12 0 0 8-12z" fill="#495f50" stroke="#394a3e" stroke-width="2"/>
+    <path d="m0-34 7 34-7 34-7-34zM-34 0l34-7 34 7-34 7z" fill="#b28b56"/>
+    <circle r="8" fill="#f3e7c7" stroke="#544a38" stroke-width="2"/>
+    <text x="0" y="-98" text-anchor="middle" fill="#384b3d" font-family="Georgia,serif" font-size="25" font-weight="bold">N</text>
+    <text x="0" y="117" text-anchor="middle" fill="#384b3d" font-family="Georgia,serif" font-size="19">S</text>
+    <text x="-100" y="7" text-anchor="middle" fill="#384b3d" font-family="Georgia,serif" font-size="19">W</text>
+    <text x="100" y="7" text-anchor="middle" fill="#384b3d" font-family="Georgia,serif" font-size="19">E</text>
+  </g>
+
+  <g transform="translate(1850 196)">
+    <rect x="0" y="0" width="1435" height="150" rx="4" fill="#ede3c9" fill-opacity=".86" stroke="#90764f" stroke-width="3"/>
+    <text x="28" y="36" fill="#3c5141" font-family="Georgia,serif" font-size="21" font-weight="bold" letter-spacing="3">TERRAIN KEY</text>
+    <path d="M28 49h1378" stroke="#b19a70" stroke-width="2"/>
+    <rect x="32" y="79" width="25" height="20" fill="#65875b" stroke="#4b684d"/>
+    <text x="72" y="97" fill="#514832" font-family="Georgia,serif" font-size="21">Woodlands</text>
+    <rect x="370" y="79" width="25" height="20" fill="#d9c46d" stroke="#a58d4e"/>
+    <text x="410" y="97" fill="#514832" font-family="Georgia,serif" font-size="21">Dry country</text>
+    <path d="M720 99 733 75l13 24z" fill="url(#mountain)" stroke="#596457"/>
+    <text x="760" y="97" fill="#514832" font-family="Georgia,serif" font-size="21">Highlands</text>
+    <path d="M1090 90h34" fill="none" stroke="#547c82" stroke-width="4"/>
+    <text x="1138" y="97" fill="#514832" font-family="Georgia,serif" font-size="21">Rivers</text>
+    <path d="M1090 123h34" fill="none" stroke="#8f5946" stroke-width="3" stroke-dasharray="5 5"/>
+    <text x="1138" y="130" fill="#514832" font-family="Georgia,serif" font-size="18">Routes</text>
+  </g>
+
+  <g fill="#705e42" font-family="Georgia,serif" font-size="18" letter-spacing="2">
+    <text x="960" y="2040">ROUTES AND TERRAIN REDRAWN FROM THE FIELD SKETCH</text>
+    <text x="3460" y="2040" text-anchor="end">NORTH IS UP</text>
+  </g>
+  <g fill="#9a7a4c">
+    <circle cx="112" cy="112" r="8"/><circle cx="3728" cy="112" r="8"/>
+    <circle cx="112" cy="2048" r="8"/><circle cx="3728" cy="2048" r="8"/>
+  </g>
+</svg>

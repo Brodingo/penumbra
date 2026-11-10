@@ -20,75 +20,99 @@
       </header>
 
       <main>
+        <figure class="atlas-hero">
+          <img src="penumbra-atlas-4k.svg" alt="A cartographer-style map of Giovia, a continent in the realm of TERA (Thod Empire Reform Authority)">
+        </figure>
+
         <section class="intro" aria-labelledby="page-title">
           <p class="eyebrow">WORLD INDEX <span>//</span> ROUTE ARCHIVE</p>
           <h1 id="page-title">Find your <em>way.</em></h1>
-          <p class="intro-copy">A field guide to the paths, places, and masters of Penumbra.</p>
+          <p class="intro-copy">Filter the index, then click any route to copy its full directions.</p>
         </section>
 
         <nav class="category-nav" aria-label="Browse directions">
-          <button class="category-tab is-active" type="button" data-category="all" aria-pressed="true">All entries</button>
+          <button class="category-tab" type="button" data-category="all" aria-pressed="false">All entries</button>
           <button class="category-tab" type="button" data-category="guild_masters" aria-pressed="false">Guild masters</button>
-          <button class="category-tab" type="button" data-category="areas" aria-pressed="false">Areas</button>
+          <button class="category-tab is-active" type="button" data-category="areas" aria-pressed="true">Areas</button>
           <button class="category-tab" type="button" data-category="mobs" aria-pressed="false">Mobs &amp; NPCs</button>
         </nav>
 
-        <div class="browser-layout">
-          <aside class="filter-panel" aria-label="Filter directions">
-            <div class="panel-heading">
-              <span class="eyebrow">QUERY BUILDER</span>
-              <span class="panel-icon" aria-hidden="true">⌕</span>
-            </div>
+        <section class="filter-panel" aria-label="Filter directions">
+          <div class="panel-heading">
+            <span class="eyebrow">FILTER INDEX</span>
+            <span class="panel-icon" aria-hidden="true">⌕</span>
+          </div>
 
-            <label class="field-label" for="search">Name or keyword</label>
+          <div class="search-field">
+            <label class="field-label" for="search">Location or keyword</label>
             <div class="search-wrap">
               <span aria-hidden="true">⌕</span>
               <input id="search" type="search" placeholder="Try “Forest of Magic”" autocomplete="off">
             </div>
+          </div>
 
-            <div class="filter-divider"></div>
+          <div class="level-filter">
             <div class="level-heading">
               <span class="field-label">Character level</span>
-              <span id="level-readout" class="level-readout">0 — 140</span>
+              <span id="level-readout" class="level-readout">0 — 150</span>
             </div>
             <div class="range-labels"><span>MIN</span><span>MAX</span></div>
             <div class="range-inputs">
               <label class="visually-hidden" for="level-min">Minimum character level</label>
-              <input id="level-min" type="range" min="0" max="140" value="0">
+              <input id="level-min" type="range" min="0" max="150" value="0">
               <label class="visually-hidden" for="level-max">Maximum character level</label>
-              <input id="level-max" type="range" min="0" max="140" value="140">
+              <input id="level-max" type="range" min="0" max="150" value="150">
             </div>
+          </div>
 
-            <div class="filter-divider"></div>
+          <div class="class-filter">
             <label class="field-label" for="class-filter">Guild class</label>
             <select id="class-filter" disabled>
               <option value="">All classes</option>
             </select>
             <p class="field-hint">Choose a class while browsing guild masters.</p>
+          </div>
 
-            <button id="clear-filters" class="clear-button" type="button">↺ <span>Clear filters</span></button>
-          </aside>
+          <button id="clear-filters" class="clear-button" type="button">↺ <span>Clear filters</span></button>
+        </section>
 
-          <section class="results-panel" id="results" aria-labelledby="results-title">
-            <div class="results-toolbar">
-              <div>
-                <p class="eyebrow">FIELD INDEX</p>
-                <h2 id="results-title">All entries</h2>
-              </div>
-              <p id="result-count" class="result-count" aria-live="polite">Loading archive…</p>
+        <section class="results-panel" id="results" aria-labelledby="results-title">
+          <div class="results-toolbar">
+            <div>
+              <p class="eyebrow">BROWSE INDEX</p>
+              <h2 id="results-title">Areas</h2>
             </div>
-            <div id="load-error" class="load-error" role="alert" hidden>
-              <strong>Archive unavailable.</strong>
-              <span>Serve this folder over HTTP and check that <code>directions.json</code> is present.</span>
-            </div>
-            <div id="entry-list" class="entry-list" aria-live="polite"></div>
-            <div id="empty-state" class="empty-state" hidden>
-              <span class="empty-glyph" aria-hidden="true">[ ? ]</span>
-              <h3>No paths found</h3>
-              <p>Try a different search or widen the level range.</p>
-            </div>
-          </section>
-        </div>
+            <p id="result-count" class="result-count" aria-live="polite">Loading archive…</p>
+          </div>
+          <div id="load-error" class="load-error" role="alert" hidden>
+            <strong>Archive unavailable.</strong>
+            <span>Serve this folder over HTTP and check that <code>directions.json</code> is present.</span>
+          </div>
+          <div class="table-scroll">
+            <table class="entry-table">
+              <thead>
+                <tr>
+                  <th scope="col" aria-sort="none">
+                    <button class="sort-button" type="button" data-sort="location">Location <span class="sort-indicator" aria-hidden="true">↕</span></button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button class="sort-button" type="button" data-sort="type">Type <span class="sort-indicator" aria-hidden="true">↕</span></button>
+                  </th>
+                  <th scope="col" aria-sort="ascending">
+                    <button class="sort-button" type="button" data-sort="level">Level <span class="sort-indicator" aria-hidden="true">↑</span></button>
+                  </th>
+                  <th scope="col">Directions · click to copy</th>
+                </tr>
+              </thead>
+              <tbody id="entry-list" aria-live="polite"></tbody>
+            </table>
+          </div>
+          <div id="empty-state" class="empty-state" hidden>
+            <span class="empty-glyph" aria-hidden="true">[ ? ]</span>
+            <h3>No paths found</h3>
+            <p>Try a different search or widen the level range.</p>
+          </div>
+        </section>
       </main>
 
       <footer class="footer">

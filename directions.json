@@ -641,6 +641,11 @@
           "details": "op wall|e|op panel|e|op panel|e|s|s|u|n|n|n|n|n|n|op panel|n|e|n|w|n|n|",
           "routes": [
             [
+              "op wall",
+              "e",
+              "op panel",
+              "e",
+              "op panel",
               "e",
               "s",
               "s",
@@ -650,9 +655,8 @@
               "n",
               "n",
               "n",
-              "n"
-            ],
-            [
+              "n",
+              "op panel",
               "n",
               "e",
               "n",
@@ -887,16 +891,13 @@
               "all e",
               "say “I seek the masters.”",
               "all n",
-              "all w"
-            ],
-            [
+              "all w",
               "open oak",
               "w",
               "e",
               "kill guardian",
-              "get all corpse"
-            ],
-            [
+              "get all corpse",
+              "vine",
               "open vine",
               "w"
             ]
@@ -2030,9 +2031,9 @@
               "say “I seek the masters.”",
               "all n",
               "w",
-              "open door"
-            ],
-            [
+              "open door",
+              "n",
+              "kill guardian",
               "get his key",
               "unlock oaken",
               "open oaken",
@@ -2570,8 +2571,8 @@
     {
       "details": "Mozartia Sewers e|e|e|e|e|n|d (5e,n,d)",
       "name": "Mozartia Sewers",
-      "min": 1,
-      "max": 10,
+      "min": 0,
+      "max": 0,
       "routes": [
         [
           "e",
@@ -2636,7 +2637,7 @@
     },
     {
       "details": "Kingdom of Brogs s|s|s|s|s|s|s|s|s|s|s|s| (12s)",
-      "name": "Kingdom of Brogs",
+      "name": "The Kingdom of Brogs",
       "min": 1,
       "max": 10,
       "routes": [
@@ -2659,8 +2660,8 @@
     {
       "details": "Reedy Swamp w|w|w|w|w|w|w|s (7w,s)",
       "name": "Reedy Swamp",
-      "min": 1,
-      "max": 10,
+      "min": 0,
+      "max": 0,
       "routes": [
         [
           "w",
@@ -2676,9 +2677,9 @@
     },
     {
       "details": "Lizardman Swamp e|e|e|e|e|e|e|e|e|s|s|s|s|s|s|s|s|s|s|w| (9e,10s,w)",
-      "name": "Lizardman Swamp",
-      "min": 1,
-      "max": 10,
+      "name": "Lizardman Swamps",
+      "min": 0,
+      "max": 0,
       "routes": [
         [
           "e",
@@ -2955,7 +2956,7 @@
     },
     {
       "details": "City of Bogg e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|n|n|n|n|n|n|n|n|n|",
-      "name": "City of Bogg",
+      "name": "The City of Bogg",
       "min": 1,
       "max": 70,
       "routes": [
@@ -3012,7 +3013,7 @@
     },
     {
       "details": "City of Evengard e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|e|n|n|e|n|n|w|n|n|w|n|n|n|w|n|n|e|n|n|e|n|n|open gate|n| (13e,2n,e,2n,e,2n,w,2n,w,3n,w,2n,e,2n,e,2n,open gate,n)",
-      "name": "City of Evengard",
+      "name": "The City of Evengard",
       "min": 1,
       "max": 99,
       "routes": [
@@ -3167,7 +3168,7 @@
     },
     {
       "details": "Lord Dakron’s Castle e|e|e|e|e|e|e|e|e|s|s|s|s|s|s|s|s|s|s|s|s|s|s| (9e, all s)",
-      "name": "Lord Dakron’s Castle",
+      "name": "Lord Darkon's Castle",
       "min": 5,
       "max": 40,
       "routes": [
@@ -3239,7 +3240,7 @@
     },
     {
       "details": "University e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|n|n|n|n|u|n|n|n|e|u (20e,2se,2e,4n,u,3n,e,u) (Only can enter)",
-      "name": "University",
+      "name": "The University",
       "min": 5,
       "max": 74,
       "routes": [
@@ -3352,7 +3353,7 @@
     },
     {
       "details": "Valley in the Black Mountains e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|e|e|n|e|s|s|u|u|u|w|w|s|w|s|se|d|d|d|sw|s (14e,3n,2e,n,e,2s,3u,2w,s,w,s,se,3d,sw,s)",
-      "name": "Valley in the Black Mountains",
+      "name": "Valley in the Black",
       "min": 10,
       "max": 35,
       "routes": [
@@ -3895,9 +3896,9 @@
     },
     {
       "details": "The Hotzp Tower e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|d|s|s|se|s|e|enter vortex",
-      "name": "The Hotzp Tower",
+      "name": "The HotZP Tower",
       "min": 35,
-      "max": null,
+      "max": 70,
       "routes": [
         [
           "e",
@@ -4004,13 +4005,15 @@
           "e",
           "enter"
         ]
-      ]
+      ],
+      "min": 35,
+      "max": 70
     },
     {
       "details": "The Tomb of Sargeras e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|n|n|w|w|s|s|e|d|d|n|n|w|s|s|s|s|s|e|e|e|s|s|s|s|e|s|s|s|s|w|w|n|w|n|w|s|s|d|d| (tp piercer, go down)",
       "name": "The Tomb of Sargeras",
       "min": 35,
-      "max": null,
+      "max": 70,
       "routes": [
         [
           "e",
@@ -4169,7 +4172,9 @@
           "n",
           "n"
         ]
-      ]
+      ],
+      "min": 35,
+      "max": 55
     },
     {
       "details": "Kingdom of Rats e|e|e|e|e|e|e|e|e|s|s|s|s|s|w|s|pick/knock secret|open secret|e|e|d|d| (9e 5s w s pick/knock secret, open secret, 2e 2d)",
@@ -4209,7 +4214,9 @@
       ]
     },
     {
-      "details": "(Wererats)"
+      "details": "(Wererats)",
+      "min": 35,
+      "max": 60
     },
     {
       "details": "Silahina Forest e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;se;se;e;e;e;e;e;e;e;e;e;e;e;e;e;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;n;open gate;n;n;n;e;n;n;e;e;w;w;n;e;e;n",
@@ -4292,7 +4299,9 @@
       ]
     },
     {
-      "details": "(tp kender)"
+      "details": "(tp kender)",
+      "min": 35,
+      "max": 70
     },
     {
       "details": "Southern Ocean **from 4s of clan house** e|e|e|s|w|se|s|s|se|s|s|s|s|s|s|s|s|se|s|se|se|s|se|se|e|e|se|s|s|s|s|s|s|s|s|se|se|s|nw|nw|",
@@ -4390,11 +4399,13 @@
           "nw",
           "quaff grape or c’water breath’ and go down"
         ]
-      ]
+      ],
+      "min": 35,
+      "max": 75
     },
     {
       "details": "Broonale Islot e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|d|s|e|n|ne|ne|ne|n|n|nw|nw|ne|e| (tp rock-lobster)",
-      "name": "Broonale Islot",
+      "name": "Broonale Islet",
       "min": 35,
       "max": 80,
       "routes": [
@@ -4457,7 +4468,9 @@
       ]
     },
     {
-      "details": "(fishing holes)"
+      "details": "(fishing holes)",
+      "min": 35,
+      "max": 80
     },
     {
       "details": "Mozartia Circus w|w|w|w|w|w|n|n|n|n|n|e|e|n| (6w,5n,2e,n)",
@@ -4485,9 +4498,9 @@
     },
     {
       "details": "The Acid Forest e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|n| (20e,2se,17e,n)",
-      "name": "The Acid Forest",
+      "name": "Acid Forest",
       "min": 50,
-      "max": null,
+      "max": 99,
       "routes": [
         [
           "e",
@@ -4535,9 +4548,9 @@
     },
     {
       "details": "Ravished Plain e|e|e|e|e|e|n|n|n|n|n|w|w|w|w|w|n|n|n|n|n|n|n|n|n|n|n|nw|n|n|n|n|nw|n|n|n|n|n|n|n|n|n|n|ne|ne|ne|stand|e|e|u|u|e|e|ne",
-      "name": "Ravished Plain",
+      "name": "Ravished Plains",
       "min": 50,
-      "max": null,
+      "max": 90,
       "routes": [
         [
           "e",
@@ -4655,7 +4668,9 @@
           "e",
           "ne"
         ]
-      ]
+      ],
+      "min": 50,
+      "max": 90
     },
     {
       "details": "Northern Demonkind w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|n|n|n|e|n|w|n| (8w,n,2w,s,w,2s,2w,3n,w,n)",
@@ -4716,13 +4731,15 @@
       ]
     },
     {
-      "details": "(agsded)"
+      "details": "(agsded)",
+      "min": 50,
+      "max": 99
     },
     {
       "details": "The Lost Temple of Rygar e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|n|n|w|w|s|s|e|d|d|n|n|w|s|s|s|s|s|e|e|e|s|s|s|s|e|s|s|s|s|w|w|n|w|n|w|s|s|n|n|n|e|e|e|s|w|s|e|e|n|e|n|n|e|n|d|e|e|s|e|e|pick gate|open gate|e|close gate",
       "name": "The Lost Temple of Rygar",
       "min": 50,
-      "max": 99,
+      "max": 100,
       "routes": [
         [
           "e",
@@ -4841,7 +4858,9 @@
           "e",
           "close gate"
         ]
-      ]
+      ],
+      "min": 50,
+      "max": 100
     },
     {
       "details": "(Dragon cult/dc) (from piercer: 3n,3e,s,w,s,2e,n,e,2n,e,n,d,2e,s,2e|pick gate|open gate|e|close gate)",
@@ -4903,8 +4922,8 @@
     {
       "details": "The Valley of Dreams closed? e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|e|e|n|e|e|e|e|s|e|sleep|wake|stand (14e,3n,2e,n,4e,s,e,sleep,wake,stand)",
       "name": "The Valley of Dreams",
-      "min": 50,
-      "max": 120,
+      "min": 25,
+      "max": 130,
       "routes": [
         [
           "e",
@@ -5044,7 +5063,9 @@
           "s",
           "e"
         ]
-      ]
+      ],
+      "min": 60,
+      "max": 99
     },
     {
       "details": "Buttercup Lake w|w|w|w|w|w|n|n|n|w|w|n|n|n|ne (6w,3n,2w,3n,ne)",
@@ -5123,11 +5144,15 @@
           "e",
           "s"
         ]
-      ]
+      ],
+      "min": 60,
+      "max": 100
     },
     {
       "details": "Can also tp batiri",
-      "name": "Can also"
+      "name": "Can also",
+      "min": 60,
+      "max": 100
     },
     {
       "details": "Hrugarth's Realm w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|e|e|s|e|e|se|e|se|e|se|n|ne|n|e|ne|ne|e|se|e|e|ne|e|e|u|",
@@ -5230,13 +5255,15 @@
           "e",
           "u"
         ]
-      ]
+      ],
+      "min": 70,
+      "max": 100
     },
     {
       "details": "The Cave of Fear e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|e|e|n|e|s|s|u|u|u|w|w|s|w|s|se|s|e|e|",
       "name": "The Cave of Fear",
       "min": 75,
-      "max": null,
+      "max": 100,
       "routes": [
         [
           "e",
@@ -5317,13 +5344,15 @@
           "e",
           "e"
         ]
-      ]
+      ],
+      "min": 75,
+      "max": 100
     },
     {
       "details": "Illusia: Easy way: tp kobold-fletcher, s,4w,nw,n,up,jump.",
       "name": "Illusia",
-      "min": 75,
-      "max": null,
+      "min": 120,
+      "max": 140,
       "routes": [
         [
           "s",
@@ -5344,8 +5373,7 @@
       "details": "Dharma's Realm ?",
       "name": "Dharma's Realm",
       "min": 75,
-      "max": null,
-      "level_range_uncertain": true
+      "max": 100
     },
     {
       "details": "The Warrens e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|e|n|n|e|n|n|w|n|n|w|n|n|n|w|n|n|e|n|n|e|n|n|open gate|n|n|n|n|n|d|daydream|",
@@ -5452,13 +5480,15 @@
           "d",
           "daydream"
         ]
-      ]
+      ],
+      "min": 90,
+      "max": 120
     },
     {
       "details": "Aerin's Trials e|e|e|e|e|e|n|n|n|n|n|w|w|w|w|w|n|n|n|n|n|n|n|n|n|n|n|nw|n|n|n|n|ne|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|w|w|w|u|u|u|e|n|n|e|e|n|n|n|n|u",
       "name": "Aerin's Trials",
-      "min": 90,
-      "max": null,
+      "min": 105,
+      "max": 120,
       "routes": [
         [
           "e",
@@ -5601,13 +5631,15 @@
           "n",
           "u"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "Grable Manor w|w|w|w|w|w|s|s|w|s|s|s|w|n|n|n|n|n|n|n| (6w,2s,w,3s,w,7n)",
       "name": "Grable Manor",
       "min": 90,
-      "max": null,
+      "max": 100,
       "routes": [
         [
           "w",
@@ -5636,8 +5668,8 @@
     {
       "details": "The Isle of Cretacia w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|e|w|w|w|s|w|s|w|se|s|s|se|s|s|s|s|s|s|s|s|se|s|se|se|s|se|se|e|e|se|e|e|e|e|e|se|s|s|s|s|s|e|se|d|d|d|e|n|n",
       "name": "The Isle of Cretacia",
-      "min": 99,
-      "max": null,
+      "min": 100,
+      "max": 115,
       "routes": [
         [
           "w",
@@ -5784,7 +5816,9 @@
           "n",
           "n"
         ]
-      ]
+      ],
+      "min": 100,
+      "max": 115
     },
     {
       "details": "Burning Lands",
@@ -5796,7 +5830,7 @@
       "details": "Forest of Magic: locate doorway",
       "name": "Forest of Magic",
       "min": 100,
-      "max": null
+      "max": 115
     },
     {
       "details": "(fom) if doorway at ixie (forest of maple) from mkt 20e 2se 13e 2n 2e ne 2se s",
@@ -5846,7 +5880,9 @@
           "se",
           "s"
         ]
-      ]
+      ],
+      "min": 100,
+      "max": 115
     },
     {
       "details": "dryads: all n from mkt or if gate closed: 6w 5n 5e all n",
@@ -5907,7 +5943,7 @@
       "details": "Club House: e|e|e|e|e|e|n|n|n|n|n|w|w|w|w|w|n|n|n|n|n|n|n|n|n|n|n|nw|n|n|n|n|ne|n|n|n|n|n|n|n|n|n|n|n|n|n|n|e|e|e|n|n|e|n|n|n|n|n|n|n|n|w|n|n|n|e|e|s|n",
       "name": "Club House",
       "min": 100,
-      "max": null,
+      "max": 115,
       "routes": [
         [
           "e",
@@ -5990,7 +6026,9 @@
           "s",
           "n"
         ]
-      ]
+      ],
+      "min": 100,
+      "max": 115
     },
     {
       "details": "Xanadu e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|d|s|s|se|s|se|se|e|e|se|ne|e|e|se|e|ne|n|u|",
@@ -6136,7 +6174,7 @@
       "details": "Ixie Forest e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|e| (20e,2se,13e,2n,e) (tp boggian)",
       "name": "Ixie Forest",
       "min": 100,
-      "max": null,
+      "max": 110,
       "routes": [
         [
           "e",
@@ -6312,7 +6350,9 @@
           "se",
           "e"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "Phantasma Dungeon ?",
@@ -6332,7 +6372,7 @@
       "details": "Maeshimi Province e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|n|n|n|n|n|n|n|n|n|e|e|n|n|e|e|ne|e|u|u|u|e|e|n|n|e|e|e|e|e|e|ne|e|e|e|u",
       "name": "Maeshimi Province",
       "min": 100,
-      "max": null,
+      "max": 110,
       "routes": [
         [
           "e",
@@ -6489,13 +6529,15 @@
           "e",
           "u"
         ]
-      ]
+      ],
+      "min": 100,
+      "max": 110
     },
     {
       "details": "Endorian Refugee Camp e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|n|open gate|n|n|n|e|n|n|n|n|n|n|w|w|n|n|n|e|e|n|e|e|se|ne|d",
       "name": "Endorian Refugee Camp",
-      "min": 100,
-      "max": null,
+      "min": 105,
+      "max": 120,
       "routes": [
         [
           "e",
@@ -6596,7 +6638,9 @@
           "ne",
           "d"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "Targoll Warrens e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|se|se|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|e|e|ne|se|se|s|se|e|e|e|se|se|e|e|ne|se|ne|ne|s|e|ne|nw|ne|se|",
@@ -6735,7 +6779,9 @@
           "ne",
           "se"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "(teleport to lazy-fisherman and go n|n|n|n|u|n|n|nw|sw|w|nw|ne|se|d (4n,u,2n,nw,sw,w,nw,ne,se,d)) (ittaska there is cleric 116-130 gm)",
@@ -6772,7 +6818,9 @@
           "se",
           "d"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "(from boggian - e|ne|se|se|s|se|e|e|e|se|se|e|e|ne|se|ne|ne|s|e|ne|nw|ne|se| (e,ne,2se,s,se,3e,2se,2e,ne,se,2ne,s,e,ne,nw,ne,se))",
@@ -6802,13 +6850,15 @@
           "ne",
           "se"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 120
     },
     {
       "details": "Valley of the Saints e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|e|e|n|e|s|s|u|u|u|n| (14e,3n,2e,n,e,2s,3u,n)",
       "name": "Valley of the Saints",
       "min": 100,
-      "max": null,
+      "max": 130,
       "routes": [
         [
           "e",
@@ -6843,9 +6893,9 @@
     },
     {
       "details": "Shai’lar’s Prison e|e|e|e|e|e|n|n|n|n|n|w|w|w|w|w|n|n|n|n|n|n|n|n|n|n|n|nw|n|n|n|n|ne|n|n|w|nw|sw|s|nw|say eternity|d",
-      "name": "Shai’lar’s Prison",
-      "min": 50,
-      "max": 90,
+      "name": "Shai'lar's Prison",
+      "min": 80,
+      "max": 110,
       "routes": [
         [
           "e",
@@ -6940,13 +6990,15 @@
           "say eternity",
           "d"
         ]
-      ]
+      ],
+      "min": 80,
+      "max": 110
     },
     {
       "details": "Arctic Tundra e|e|e|e|e|e|n|n|n|n|n|w|w|w|w|w|n|n|n|n|n|n|n|n|n|n|n|nw|n|n|n|n|nw|n|n|n|n|n|n|n|n|n|n|ne|ne|ne|n|n|n|n|",
       "name": "Arctic Tundra",
       "min": 105,
-      "max": null,
+      "max": 115,
       "routes": [
         [
           "e",
@@ -7057,12 +7109,14 @@
           "n",
           "n"
         ]
-      ]
+      ],
+      "min": 105,
+      "max": 115
     },
     {
       "details": "Lost Temple of Sheean w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|e|e|s|e|e|se|e|se|s|sw|nw| (8w,n,2w,s,w,2s,2w,2s,2e,s,2e,se,e,se,s,sw,nw)",
       "name": "Lost Temple of Sheean",
-      "min": 105,
+      "min": 100,
       "max": 120,
       "routes": [
         [
@@ -7106,7 +7160,7 @@
     {
       "details": "Catacombs of Terror e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|n|n|e|e|n|e|s|s|u|u|u|w|w|s|w|s|se|d|d|se| (14e,3n,2e,n,e,2s,3u,2w,s,w,s,se,2d,se)",
       "name": "Catacombs of Terror",
-      "min": 110,
+      "min": 100,
       "max": 130,
       "routes": [
         [
@@ -7213,13 +7267,15 @@
       ]
     },
     {
-      "details": "(assassin-spider)"
+      "details": "(assassin-spider)",
+      "min": 110,
+      "max": 135
     },
     {
       "details": "Skeletal Forest: ** from 4s of chouse ** w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|s|s|sw|sw|w|w|w|w|ne",
       "name": "Skeletal Forest",
       "min": 110,
-      "max": null,
+      "max": 150,
       "routes": [
         [
           "w",
@@ -7278,7 +7334,9 @@
           "w",
           "w"
         ]
-      ]
+      ],
+      "min": 110,
+      "max": 150
     },
     {
       "details": "** from mkt ** w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|w|w|s|w|w|w|w|w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|s|s|sw|sw|w|w|w|w|ne",
@@ -7334,7 +7392,9 @@
           "w",
           "ne"
         ]
-      ]
+      ],
+      "min": 110,
+      "max": 150
     },
     {
       "details": "** from mkt ** ((8w,n,2w,s,w,2s,2w,2s,2w,s,7w 2sw 2w 2nw all w 2s 2sw 4w (ne to enter forest))",
@@ -7357,13 +7417,15 @@
           "s",
           "all w"
         ]
-      ]
+      ],
+      "min": 110,
+      "max": 150
     },
     {
       "details": "Shadaki City **from 4s of clan house** e|e|e|s|w|se|s|s|se|s|s|s|s|s|s|s|s|se|s|se|se|s|se|se|e|e|se|s|s|s|s|s|s|s|s|se|se|s|nw|nw|d|n|w|sw|s|s|s|s|o door|d",
       "name": "Shadaki City",
       "min": 115,
-      "max": null,
+      "max": 140,
       "routes": [
         [
           "e",
@@ -7471,7 +7533,9 @@
           "s",
           "s"
         ]
-      ]
+      ],
+      "min": 115,
+      "max": 140
     },
     {
       "details": "**from mkt** w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|w|w|s|w|s|w|se|s|s|se|s|s|s|s|s|s|s|s|se|s|se|se|s|se|se|e|e|se|s|s|s|s|s|s|s|s|se|se|s|nw|nw|d|n|w|sw|s|s|s|s|o door|d",
@@ -7547,7 +7611,9 @@
           "s",
           "s"
         ]
-      ]
+      ],
+      "min": 115,
+      "max": 140
     },
     {
       "details": "**from mkt** (8w,n,2w,s,w,2s,2w,2s,2w,s,w, s,w,se,2s,se,8s,se,s,2se,s,2se,2e,se,8s,2se,s,2nw,quaff grape or c water breath,d,n,w,sw,4s,o door,d)",
@@ -7624,13 +7690,15 @@
           "s",
           "s"
         ]
-      ]
+      ],
+      "min": 115,
+      "max": 140
     },
     {
       "details": "Zinobel Desert: ** from 4s of clanhouse ** w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|nw|n|n|n|w|w",
       "name": "Zinobel Desert",
-      "min": 120,
-      "max": null,
+      "min": 128,
+      "max": 142,
       "routes": [
         [
           "w",
@@ -7679,7 +7747,9 @@
           "w",
           "w"
         ]
-      ]
+      ],
+      "min": 128,
+      "max": 142
     },
     {
       "details": "** from mkt ** w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|w|w|s|w|w|w|w|w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|nw|n|n|n|w|w",
@@ -7732,7 +7802,9 @@
           "w",
           "w"
         ]
-      ]
+      ],
+      "min": 128,
+      "max": 142
     },
     {
       "details": "** from mkt ** (8w,n,2w,s,w,2s,2w,2s,2w,s,7w, 2sw,2w,2nw,4w,nw,3n,2w)",
@@ -7785,13 +7857,15 @@
           "w",
           "w"
         ]
-      ]
+      ],
+      "min": 128,
+      "max": 142
     },
     {
       "details": "Red Fern Swamp: w|w|w|w|w|w|w|w|n|w|w|s|w|s|s|w|w|s|s|w|w|s|e|s|s|s| (8w,n,2w,s,w,2s,2w,2s,2w,s,e,3s) (tp green-fern)",
       "name": "Red Fern Swamp",
       "min": 120,
-      "max": null,
+      "max": 135,
       "routes": [
         [
           "w",
@@ -7825,9 +7899,9 @@
     },
     {
       "details": "Palamentian Woods e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|e|n|ne|n|nw|ne|e|e|ne|e|se|ne|e|se|ne|n|n|n|n|n|nw|nw|nw|nw|w|sw|sw|w|sw|w|sw|w|sw|sw|n|nw|n|ne|n|n",
-      "name": "Palamentian Woods",
-      "min": 120,
-      "max": null,
+      "name": "Pallametien Woods",
+      "min": 125,
+      "max": 150,
       "routes": [
         [
           "e",
@@ -7950,13 +8024,15 @@
           "n",
           "n"
         ]
-      ]
+      ],
+      "min": 125,
+      "max": 150
     },
     {
       "details": "Graveyard of the Kings w|w|w|w|w|w|s|s|e|s|s|s|s|s|se|open gate|s|s|w|s|s|sw, (tp mont)",
-      "name": "Graveyard of the Kings",
+      "name": "Graveyard of Kings",
       "min": 130,
-      "max": null,
+      "max": 150,
       "routes": [
         [
           "w",
@@ -7985,7 +8061,9 @@
       ]
     },
     {
-      "details": "(gok) (WOR OROEDE from center of graveyard to get out, or tp. MOBS are agro)"
+      "details": "(gok) (WOR OROEDE from center of graveyard to get out, or tp. MOBS are agro)",
+      "min": 130,
+      "max": 150
     },
     {
       "details": "Hints for area: To get to oroede: Kill all ghosts, go to north tomb open a secret passage north,then go ne, and proceed",
@@ -7995,23 +8073,33 @@
           "n",
           "ne"
         ]
-      ]
+      ],
+      "min": 130,
+      "max": 150
     },
     {
       "details": "with CAUTION!!! VERY HARD MOB:",
-      "name": "with CAUTION!!! VERY HARD MOB"
+      "name": "with CAUTION!!! VERY HARD MOB",
+      "min": 130,
+      "max": 150
     },
     {
       "details": "Known equipment in area:",
-      "name": "Known equipment in area"
+      "name": "Known equipment in area",
+      "min": 130,
+      "max": 150
     },
     {
       "details": "Painted cape of Que'tor , Cinder, marble shield, burning band, crystal sleeves, broensten, infinitys band,",
-      "name": "Painted cape of Que'tor , Cinder, marble shield, burning band, crystal sleeves, broensten, infinitys band,"
+      "name": "Painted cape of Que'tor , Cinder, marble shield, burning band, crystal sleeves, broensten, infinitys band,",
+      "min": 130,
+      "max": 150
     },
     {
       "details": "acid boxers, talisman of inarh, Possibly Taradves",
-      "name": "acid boxers, talisman of inarh, Possibly Taradves"
+      "name": "acid boxers, talisman of inarh, Possibly Taradves",
+      "min": 130,
+      "max": 150
     },
     {
       "details": "Lost Continent (LC) tp to zanc, give 350000 gold zanc. type: reg to register with Alfred ALWAYS!!!!!!",
@@ -8022,8 +8110,8 @@
     {
       "details": "Sea of Swords: From chouse Recall: e|say penumbra|s|s|s|s|w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|nw|n|n|n|n|n|nw|n|n|nw|nw|n|nw|w|",
       "name": "Sea of Swords",
-      "min": 130,
-      "max": null,
+      "min": 140,
+      "max": 150,
       "routes": [
         [
           "e",
@@ -8103,7 +8191,9 @@
           "w",
           "w"
         ]
-      ]
+      ],
+      "min": 140,
+      "max": 150
     },
     {
       "details": "Tower of Ralion's Goto Skeletal Forest (Mohrgs). After entering with the ne, go n|e|s|w|w|s|w|nw",
@@ -8126,9 +8216,9 @@
     },
     {
       "details": "Vartessia From rose in Zinobel: s,w,w,sw. Then stable your camel and go n. If you are not good align, you will be attacked!",
-      "name": "Vartessia",
+      "name": "Vartessa",
       "min": 135,
-      "max": null,
+      "max": 150,
       "routes": [
         [
           "s",
@@ -8141,7 +8231,7 @@
       "details": "Realm of Eternal Life ** From 4s of chouse ** w|w|w|sw|sw|w|w|nw|nw|w|w|w|w|s|s|sw|sw|w|w|w|w|nw|nw|w|w|n|w|s|sw|",
       "name": "Realm of Eternal Life",
       "min": 140,
-      "max": null,
+      "max": 150,
       "routes": [
         [
           "w",
@@ -8188,7 +8278,9 @@
           "e",
           "s"
         ]
-      ]
+      ],
+      "min": 140,
+      "max": 150
     },
     {
       "details": "Dragon Cult (dc) 70+ From Piercer: n|n|n|e|e|e|s|w|s|e|e|n|e|n|n|e|n|d|e|e|s|e|e|pick gate|open gate|e|close gate",

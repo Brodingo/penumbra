@@ -1,14 +1,17 @@
 const state = {
   data: null,
-  category: "all",
+  category: "areas",
   search: "",
   minLevel: 0,
-  maxLevel: 140,
+  maxLevel: 150,
   guildClass: "",
+  sortKey: "level",
+  sortDirection: "asc",
 };
 
 const elements = {
   tabs: [...document.querySelectorAll(".category-tab")],
+  sortHeaders: [...document.querySelectorAll("[data-sort]")],
   search: document.querySelector("#search"),
   minLevel: document.querySelector("#level-min"),
   maxLevel: document.querySelector("#level-max"),
@@ -39,6 +42,69 @@ function makeElement(tag, className, text) {
   return element;
 }
 
+function categorizedLocations(category, label) {
+  let currentLocation = "";
+  const locations = new Map();
+  for (const [index, entry] of (state.data[category] ?? []).entries()) {
+    const isRouteHeading = entry.name && (
+      /^\*+\s*from\b/i.test(entry.name)
+      || /^from piercer$/i.test(entry.name)
+      || /^wait to be taken out\b/i.test(entry.name)
+      || /^can also$/i.test(entry.name)
+      || /^hints for area$/i.test(entry.name)
+      || /^with caution\b/i.test(entry.name)
+      || /^known equipment in area:?$/i.test(entry.name)
+      || /^(?:painted cape|acid boxers)\b/i.test(entry.name)
+    );
+    if (entry.name && !isRouteHeading) currentLocation = entry.name;
+    const groupName = isRouteHeading
+      ? currentLocation || "Additional directions"
+      : entry.name ?? currentLocation ?? "Additional directions";
+    const isContinuation = !entry.name || isRouteHeading;
+    const normalized = {
+      ...entry,
+      category: label,
+      groupName,
+      sourceOrder: index,
+    };
+    const existing = locations.get(groupName);
+
+    if (!existing) {
+      locations.set(groupName, {
+        ...normalized,
+        displayName: isContinuation
+          ? "Additional directions"
+          : entry.name.replace(/^([a-z])/, (letter) => letter.toLocaleUpperCase()),
+        isPlaceholder: isContinuation,
+        additionalEntries: [],
+      });
+    } else if (!isContinuation && existing.isPlaceholder) {
+      locations.set(groupName, {
+        ...normalized,
+        displayName: entry.name.replace(/^([a-z])/, (letter) => letter.toLocaleUpperCase()),
+        isPlaceholder: false,
+        additionalEntries: [
+          { ...existing, additionalEntries: [] },
+          ...existing.additionalEntries,
+        ],
+      });
+    } else {
+      existing.additionalEntries.push(normalized);
+    }
+
+    const location = locations.get(groupName);
+    if (Number.isFinite(entry.min)) {
+      location.min = Number.isFinite(location.min) ? Math.min(location.min, entry.min) : entry.min;
+    }
+    if (entry.max === null || (Number.isFinite(entry.max)
+      && (location.max == null || entry.max > location.max))) {
+      location.max = entry.max;
+    }
+    if (/^from piercer$/i.test(entry.name ?? "")) currentLocation = "Dragon Cult";
+  }
+  return [...locations.values()];
+}
+
 function getEntries() {
   if (!state.data) return [];
 
@@ -52,16 +118,11 @@ function getEntries() {
     }
   }
   if (!state.guildClass || state.category !== "all") {
-    for (const category of ["areas", "mobs"]) {
-      if (state.category === "all" || state.category === category) {
-        for (const entry of state.data[category] ?? []) {
-          entries.push({
-            ...entry,
-            category: category === "areas" ? "Area" : "Mob / NPC",
-            groupName: entry.name ?? "Unlabelled entry",
-          });
-        }
-      }
+    if (state.category === "all" || state.category === "areas") {
+      entries.push(...categorizedLocations("areas", "Area"));
+    }
+    if (state.category === "all" || state.category === "mobs") {
+      entries.push(...categorizedLocations("mobs", "Mob / NPC"));
     }
   }
   if (state.category === "all" && !state.guildClass) {
@@ -71,7 +132,7 @@ function getEntries() {
   }
 
   const query = state.search.trim().toLocaleLowerCase();
-  return entries.filter((entry) => {
+  return entries.map((entry, archiveOrder) => ({ ...entry, archiveOrder })).filter((entry) => {
     const levelKnown = Number.isFinite(entry.min) || Number.isFinite(entry.max);
     const inLevelRange = !levelKnown
       || ((entry.max == null || entry.max >= state.minLevel)
@@ -82,8 +143,35 @@ function getEntries() {
       entry.category,
       entry.details,
       ...(entry.routes ?? []).flat(),
+      ...(entry.additionalEntries ?? []).flatMap((alternate) => [
+        alternate.name,
+        alternate.details,
+        ...(alternate.routes ?? []).flat(),
+      ]),
     ].filter(Boolean).join(" ").toLocaleLowerCase();
     return inLevelRange && (!query || searchable.includes(query));
+  }).sort((left, right) => {
+    let comparison = 0;
+    if (state.sortKey === "location") {
+      comparison = (left.displayName ?? left.name ?? left.groupName ?? "")
+        .localeCompare(right.displayName ?? right.name ?? right.groupName ?? "");
+    } else if (state.sortKey === "type") {
+      comparison = left.category.localeCompare(right.category);
+    } else {
+      const leftKnown = Number.isFinite(left.min) || Number.isFinite(left.max);
+      const rightKnown = Number.isFinite(right.min) || Number.isFinite(right.max);
+      if (leftKnown !== rightKnown) return leftKnown ? -1 : 1;
+      const leftLevel = Number.isFinite(left.min) ? left.min : left.max;
+      const rightLevel = Number.isFinite(right.min) ? right.min : right.max;
+      comparison = leftLevel - rightLevel;
+      if (comparison === 0) {
+        const leftMax = Number.isFinite(left.max) ? left.max : Number.POSITIVE_INFINITY;
+        const rightMax = Number.isFinite(right.max) ? right.max : Number.POSITIVE_INFINITY;
+        comparison = leftMax - rightMax;
+      }
+    }
+    if (comparison !== 0) return comparison * (state.sortDirection === "asc" ? 1 : -1);
+    return left.archiveOrder - right.archiveOrder;
   });
 }
 
@@ -121,69 +209,161 @@ function announceCopy(message) {
   }, 2400);
 }
 
-function renderRoute(route, index, cardName) {
-  const block = makeElement("div", "route-block");
-  const topline = makeElement("div", "route-topline");
-  topline.append(makeElement("span", "route-label", `ROUTE ${String(index + 1).padStart(2, "0")}`));
+function expandRouteCommands(route) {
+  return route.flatMap((command) => {
+    const repetition = command.trim().match(/^(\d+)(e|w|n|s|ne|nw|se|sw|u|d)$/i);
+    return repetition
+      ? Array(Number(repetition[1])).fill(repetition[2].toLocaleLowerCase())
+      : [command.trim().toLocaleLowerCase()];
+  });
+}
 
-  const copyButton = makeElement("button", "copy-button", "⧉ COPY");
+function routeListFor(entry) {
+  const routes = Array.isArray(entry.routes)
+    ? entry.routes.filter((route) => Array.isArray(route) && route.length)
+    : [];
+  const details = entry.details ?? "";
+  const firstSection = details.split("(")[0].trim();
+  const routeText = entry.name && firstSection.toLocaleLowerCase().startsWith(entry.name.toLocaleLowerCase())
+    ? firstSection.slice(entry.name.length).trim()
+    : firstSection;
+  const sourceRoute = routeText.split("|").map((command) => command.trim()).filter(Boolean);
+  if (routes.length > 1 && sourceRoute.length > 1 && /^tp\s/i.test(sourceRoute[0])) {
+    const expectedTail = expandRouteCommands(sourceRoute.slice(1));
+    const matchingRouteIndex = routes.findIndex((route) => {
+      const expanded = expandRouteCommands(route);
+      return expanded.length === expectedTail.length
+        && expanded.every((command, index) => command === expectedTail[index]);
+    });
+    if (matchingRouteIndex >= 0) {
+      return [sourceRoute, ...routes.filter((_, index) => index !== matchingRouteIndex)];
+    }
+  }
+
+  const hasPipeRoute = details.includes("|");
+  const hasCompactAlternative = /\([^)]*\b\d+\s*(?:e|w|n|s|ne|nw|se|sw|u|d)\b/i.test(details);
+  const hasSeparateOrigins = /\bthen\b|\(\s*from\b/i.test(details);
+
+  if (!hasPipeRoute || !hasCompactAlternative || hasSeparateOrigins || routes.length < 2) {
+    return routes;
+  }
+
+  const pipeTokens = details.split("|").map((token) => {
+    let normalized = token.trim().toLocaleLowerCase().split("(")[0].trim();
+    if (entry.name) {
+      const name = entry.name.toLocaleLowerCase();
+      if (normalized.startsWith(name)) normalized = normalized.slice(name.length).trim();
+      normalized = normalized.replace(/^[:\s]+/, "");
+    }
+    if (entry.name && /^(?:any|all)\s+/i.test(normalized)) {
+      normalized = normalized.replace(/^(?:any|all)\s+/i, "");
+    }
+    return normalized;
+  }).filter(Boolean);
+  const pipeCounts = new Map();
+  for (const token of pipeTokens) pipeCounts.set(token, (pipeCounts.get(token) ?? 0) + 1);
+
+  let bestRoute = routes[0];
+  let bestScore = -1;
+  let bestMatchCount = -1;
+  for (const route of routes) {
+    const remaining = new Map(pipeCounts);
+    let matched = 0;
+    for (const command of route) {
+      const token = command.trim().toLocaleLowerCase();
+      const count = remaining.get(token) ?? 0;
+      if (count > 0) {
+        matched += 1;
+        remaining.set(token, count - 1);
+      }
+    }
+    const normalizedScore = matched / route.length;
+    if (normalizedScore > bestScore
+      || (normalizedScore === bestScore && matched > bestMatchCount)
+      || (normalizedScore === bestScore && matched === bestMatchCount && route.length > bestRoute.length)) {
+      bestRoute = route;
+      bestScore = normalizedScore;
+      bestMatchCount = matched;
+    }
+  }
+  return [bestRoute];
+}
+
+function formatRoute(route) {
+  return expandRouteCommands(route).join("  >  ");
+}
+
+function renderRoute(route, index, locationName) {
+  const copyButton = makeElement("button", "route-copy");
   copyButton.type = "button";
-  copyButton.setAttribute("aria-label", `Copy route ${index + 1} for ${cardName}`);
+  copyButton.setAttribute("aria-label", `Copy route ${index + 1} for ${locationName}`);
+  copyButton.append(
+    makeElement("span", "route-label", `${index ? "ALT" : "ROUTE"} ${String(index + 1).padStart(2, "0")}`),
+    makeElement("code", "route-code", formatRoute(route)),
+    makeElement("span", "route-copy-hint", "⧉ COPY"),
+  );
   copyButton.addEventListener("click", async () => {
     try {
-      await copyText(route.join("|"));
+      await copyText(expandRouteCommands(route).join("|"));
       announceCopy(`Route ${index + 1} copied — ready for the MUD.`);
     } catch (error) {
       console.error("Could not copy route to clipboard.", error);
       announceCopy("Copy failed. Select the route text and copy it manually.");
     }
   });
-  topline.append(copyButton);
+  return copyButton;
+}
 
-  const code = makeElement("code", "route-code", route.join("|"));
-  const pre = makeElement("pre");
-  pre.append(code);
-  block.append(topline, pre);
-  return block;
+function renderAlternateNote(text) {
+  const note = makeElement("div", "alternate-note");
+  note.append(
+    makeElement("span", "route-label", "ALTERNATE"),
+    makeElement("span", "alternate-note-text", text),
+  );
+  return note;
 }
 
 function renderEntry(entry) {
-  const card = makeElement("article", "entry-card");
-  const head = makeElement("div", "entry-head");
-  const heading = makeElement("div", "entry-heading");
-  heading.append(
-    makeElement("div", "entry-type", entry.groupName !== entry.name
-      ? `${entry.category} / ${entry.groupName}`
-      : entry.category),
-    makeElement("h3", "entry-name", entry.name ?? (entry.category === "Guild master" ? entry.groupName : entry.category)),
-  );
-  head.append(heading, makeElement("span", "level-badge", levelText(entry)));
-  card.append(head);
+  const row = makeElement("tr", "entry-row");
+  const locationCell = makeElement("td", "location-cell");
+  const locationName = entry.displayName ?? entry.name ?? (entry.category === "Guild master" ? entry.groupName : "Additional directions");
+  locationCell.append(makeElement("span", "entry-name", locationName));
+  const typeLabel = entry.category === "Guild master"
+    ? "GM"
+    : entry.category === "Guild master note"
+      ? "GM note"
+      : entry.category;
+  const typeCell = makeElement("td", "type-cell", typeLabel);
+  const levelCell = makeElement("td", "level-cell", levelText(entry));
+  const directionsCell = makeElement("td", "directions-cell");
+  const alternateEntries = entry.additionalEntries ?? [];
+  const primaryRoutes = routeListFor(entry);
+  const routes = [
+    ...primaryRoutes,
+    ...alternateEntries.flatMap((alternate) => routeListFor(alternate)),
+  ];
+  const alternateNotes = alternateEntries
+    .filter((alternate) => routeListFor(alternate).length === 0)
+    .map((alternate) => alternate.details?.trim())
+    .filter(Boolean);
 
-  const notes = entry.details?.trim();
-  const routeSource = Array.isArray(entry.routes) && entry.routes.length;
-  if (notes && !routeSource) {
-    card.append(makeElement("p", "entry-notes", notes));
-  }
-
-  if (routeSource) {
+  if (routes.length) {
     const routeList = makeElement("div", "route-list");
-    entry.routes.forEach((route, index) => {
-      routeList.append(renderRoute(route, index, entry.name ?? entry.groupName));
+    routes.forEach((route, index) => {
+      routeList.append(renderRoute(route, index, locationName));
     });
-    card.append(routeList);
-    if (notes) {
-      const source = makeElement("details", "source-notes");
-      source.append(makeElement("summary", "", "View field notes"));
-      source.append(makeElement("p", "", notes));
-      const footer = makeElement("div", "entry-foot");
-      footer.append(source);
-      card.append(footer);
-    }
-  } else if (notes) {
-    card.append(makeElement("p", "no-route", "No route recorded for this entry."));
+    alternateNotes.forEach((note) => routeList.append(renderAlternateNote(note)));
+    directionsCell.append(routeList);
+  } else if (alternateNotes.length) {
+    const routeList = makeElement("div", "route-list");
+    if (entry.details?.trim()) routeList.append(renderAlternateNote(entry.details.trim()));
+    alternateNotes.forEach((note) => routeList.append(renderAlternateNote(note)));
+    directionsCell.append(routeList);
+  } else {
+    directionsCell.append(makeElement("p", "no-route", entry.details?.trim() || "No directions recorded."));
   }
-  return card;
+  row.append(locationCell, typeCell, levelCell, directionsCell);
+  return row;
 }
 
 function updateRangeReadout() {
@@ -208,6 +388,16 @@ function render() {
   const fragment = document.createDocumentFragment();
   entries.forEach((entry) => fragment.append(renderEntry(entry)));
   elements.entryList.replaceChildren(fragment);
+  elements.sortHeaders.forEach((header) => {
+    const selected = header.dataset.sort === state.sortKey;
+    header.setAttribute("aria-pressed", String(selected));
+    header.closest("th").setAttribute("aria-sort", selected
+      ? state.sortDirection === "asc" ? "ascending" : "descending"
+      : "none");
+    header.querySelector(".sort-indicator").textContent = selected
+      ? state.sortDirection === "asc" ? "↑" : "↓"
+      : "↕";
+  });
   elements.resultCount.textContent = `${String(entries.length).padStart(3, "0")} ${entries.length === 1 ? "ENTRY" : "ENTRIES"}`;
   elements.emptyState.hidden = entries.length > 0;
 }
@@ -236,6 +426,18 @@ function setCategory(category) {
 elements.tabs.forEach((tab) => {
   tab.addEventListener("click", () => setCategory(tab.dataset.category));
 });
+elements.sortHeaders.forEach((header) => {
+  header.addEventListener("click", () => {
+    const sortKey = header.dataset.sort;
+    if (state.sortKey === sortKey) {
+      state.sortDirection = state.sortDirection === "asc" ? "desc" : "asc";
+    } else {
+      state.sortKey = sortKey;
+      state.sortDirection = "asc";
+    }
+    render();
+  });
+});
 elements.search.addEventListener("input", () => {
   state.search = elements.search.value;
   render();
@@ -255,7 +457,7 @@ elements.classFilter.addEventListener("change", () => {
 elements.clear.addEventListener("click", () => {
   elements.search.value = "";
   elements.minLevel.value = "0";
-  elements.maxLevel.value = "140";
+  elements.maxLevel.value = "150";
   elements.classFilter.value = "";
   state.search = "";
   state.guildClass = "";
