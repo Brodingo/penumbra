@@ -12,6 +12,7 @@ const state = {
 const elements = {
   tabs: [...document.querySelectorAll(".category-tab")],
   sortHeaders: [...document.querySelectorAll("[data-sort]")],
+  theme: document.querySelector("#theme-select"),
   search: document.querySelector("#search"),
   minLevel: document.querySelector("#level-min"),
   maxLevel: document.querySelector("#level-max"),
@@ -33,7 +34,39 @@ const categoryLabels = {
   mobs: "Mobs & NPCs",
 };
 
+const themeNames = new Set([...elements.theme.options].map((option) => option.value));
+const themeStorageKey = "penumbra-theme";
 let copyStatusTimeout;
+
+function updateThemeColor() {
+  requestAnimationFrame(() => {
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    themeColor.content = getComputedStyle(document.documentElement).getPropertyValue("--page").trim();
+  });
+}
+
+function applyTheme(theme) {
+  const selectedTheme = themeNames.has(theme) ? theme : "twilight";
+  document.documentElement.dataset.theme = selectedTheme;
+  elements.theme.value = selectedTheme;
+  updateThemeColor();
+  try {
+    localStorage.setItem(themeStorageKey, selectedTheme);
+  } catch (error) {
+    console.warn("Could not save the selected color theme.", error);
+  }
+}
+
+try {
+  const savedTheme = localStorage.getItem(themeStorageKey);
+  if (savedTheme && themeNames.has(savedTheme)) {
+    document.documentElement.dataset.theme = savedTheme;
+    elements.theme.value = savedTheme;
+    updateThemeColor();
+  }
+} catch (error) {
+  console.warn("Could not load the saved color theme.", error);
+}
 
 function makeElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -426,6 +459,7 @@ function setCategory(category) {
 elements.tabs.forEach((tab) => {
   tab.addEventListener("click", () => setCategory(tab.dataset.category));
 });
+elements.theme.addEventListener("change", () => applyTheme(elements.theme.value));
 elements.sortHeaders.forEach((header) => {
   header.addEventListener("click", () => {
     const sortKey = header.dataset.sort;

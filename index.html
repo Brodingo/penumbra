@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#101511">
-    <title>Penumbra Field Notes</title>
+    <meta name="theme-color" content="#0a0d18">
+    <title>Penumbra — Legacy Field Handbook</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
@@ -13,10 +13,35 @@
     <div class="app-shell">
       <header class="topbar">
         <a class="brand" href="#" aria-label="Penumbra Field Notes home">
-          <span class="brand-mark" aria-hidden="true">P_</span>
-          <span class="brand-name">PENUMBRA<span class="brand-subtitle">FIELD NOTES / MUD ATLAS</span></span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" focusable="false">
+              <path d="M22.8 3.8A12.6 12.6 0 1 0 28.2 24 10.8 10.8 0 0 1 22.8 3.8Z"/>
+            </svg>
+          </span>
+          <span class="brand-name">PENUMBRA<span class="brand-subtitle">LEGACY CLAN / FIELD HANDBOOK</span></span>
         </a>
-        <div class="system-status"><span class="status-light"></span> ARCHIVE ONLINE</div>
+        <div class="theme-control">
+          <label class="visually-hidden" for="theme-select">Choose a field guide theme</label>
+          <span class="theme-glyph" aria-hidden="true">✦</span>
+          <select id="theme-select" aria-label="Color theme">
+            <optgroup label="Night skies">
+              <option value="twilight">Twilight</option>
+              <option value="moonlit">Moonlit</option>
+              <option value="starlit">Starlit</option>
+            </optgroup>
+            <optgroup label="Realms">
+              <option value="forest">Forest</option>
+              <option value="mountain">Mountain</option>
+              <option value="town">Town</option>
+              <option value="desert">Desert</option>
+              <option value="tundra">Tundra</option>
+              <option value="underdark">Underdark</option>
+              <option value="coast">Coast</option>
+              <option value="marsh">Marsh</option>
+              <option value="ruins">Ruins</option>
+            </optgroup>
+          </select>
+        </div>
       </header>
 
       <main>
@@ -25,9 +50,9 @@
         </figure>
 
         <section class="intro" aria-labelledby="page-title">
-          <p class="eyebrow">WORLD INDEX <span>//</span> ROUTE ARCHIVE</p>
+          <p class="eyebrow">LEGACY CLAN <span>//</span> GIOVIA FIELD GUIDE</p>
           <h1 id="page-title">Find your <em>way.</em></h1>
-          <p class="intro-copy">Filter the index, then click any route to copy its full directions.</p>
+          <p class="intro-copy">A quiet field handbook for Legacy members. Filter by place or level, then select a route to copy its directions.</p>
         </section>
 
         <nav class="category-nav" aria-label="Browse directions">
@@ -116,8 +141,8 @@
       </main>
 
       <footer class="footer">
-        <span>PENUMBRA FIELD NOTES</span>
-        <span>KEEP YOUR MAP CLOSE <span class="footer-star">✳</span></span>
+        <span>THE LEGACY FIELD HANDBOOK</span>
+        <span>IN BALANCE, WALK QUIETLY <span class="footer-star">✦</span></span>
       </footer>
     </div>
     <div id="copy-status" class="copy-status" role="status" aria-live="polite"></div>
