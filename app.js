@@ -13,6 +13,7 @@ const elements = {
   tabs: [...document.querySelectorAll(".category-tab")],
   sortHeaders: [...document.querySelectorAll("[data-sort]")],
   theme: document.querySelector("#theme-select"),
+  installButton: document.querySelector("#install-button"),
   search: document.querySelector("#search"),
   minLevel: document.querySelector("#level-min"),
   maxLevel: document.querySelector("#level-max"),
@@ -36,7 +37,26 @@ const categoryLabels = {
 
 const themeNames = new Set([...elements.theme.options].map((option) => option.value));
 const themeStorageKey = "penumbra-theme";
+const archiveStorageKey = "penumbra-directions-cache";
 let copyStatusTimeout;
+let deferredInstallPrompt = null;
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+    console.warn("Service worker registration failed.", error);
+  });
+}
+
+function installPromptAvailable() {
+  return Boolean(deferredInstallPrompt);
+}
+
+function showInstallButton() {
+  if (elements.installButton) {
+    elements.installButton.hidden = !installPromptAvailable();
+  }
+}
 
 function updateThemeColor() {
   requestAnimationFrame(() => {
@@ -46,7 +66,7 @@ function updateThemeColor() {
 }
 
 function applyTheme(theme) {
-  const selectedTheme = themeNames.has(theme) ? theme : "twilight";
+  const selectedTheme = themeNames.has(theme) ? theme : "terminal";
   document.documentElement.dataset.theme = selectedTheme;
   elements.theme.value = selectedTheme;
   updateThemeColor();
@@ -436,9 +456,49 @@ function render() {
 }
 
 function populateClasses() {
+  elements.classFilter.innerHTML = '<option value="">All classes</option>';
   for (const guild of state.data.guild_masters ?? []) {
     elements.classFilter.append(makeElement("option", "", guild.name));
   }
+}
+
+function validateArchive(data) {
+  return Boolean(data)
+    && Array.isArray(data.guild_masters)
+    && Array.isArray(data.guild_master_notes)
+    && Array.isArray(data.areas)
+    && Array.isArray(data.mobs);
+}
+
+function saveArchiveCache(data) {
+  try {
+    localStorage.setItem(archiveStorageKey, JSON.stringify(data));
+  } catch (error) {
+    console.warn("Could not cache the directions archive locally.", error);
+  }
+}
+
+function loadArchiveCache() {
+  try {
+    const raw = localStorage.getItem(archiveStorageKey);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!validateArchive(parsed)) return null;
+    return parsed;
+  } catch (error) {
+    console.warn("Could not read cached archive.", error);
+    return null;
+  }
+}
+
+function hydrateArchive(data) {
+  if (!validateArchive(data)) {
+    throw new Error("directions.json does not have the expected archive structure.");
+  }
+  state.data = data;
+  populateClasses();
+  elements.loadError.hidden = true;
+  render();
 }
 
 function setCategory(category) {
@@ -455,6 +515,34 @@ function setCategory(category) {
   }
   render();
 }
+
+if (elements.installButton) {
+  elements.installButton.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    try {
+      await deferredInstallPrompt.userChoice;
+    } catch (error) {
+      console.warn("Install prompt was cancelled.", error);
+    } finally {
+      deferredInstallPrompt = null;
+      showInstallButton();
+    }
+  });
+}
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  showInstallButton();
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  showInstallButton();
+});
+
+registerServiceWorker();
 
 elements.tabs.forEach((tab) => {
   tab.addEventListener("click", () => setCategory(tab.dataset.category));
@@ -499,22 +587,28 @@ elements.clear.addEventListener("click", () => {
   render();
 });
 
-fetch("directions.json")
-  .then((response) => {
+async function loadArchive() {
+  const cachedArchive = loadArchiveCache();
+  if (cachedArchive) {
+    hydrateArchive(cachedArchive);
+  }
+
+  try {
+    const response = await fetch("directions.json", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Failed to load directions.json (${response.status}).`);
-    return response.json();
-  })
-  .then((data) => {
-    if (!data || !Array.isArray(data.guild_masters) || !Array.isArray(data.areas) || !Array.isArray(data.mobs)) {
-      throw new Error("directions.json does not have the expected archive structure.");
+    const data = await response.json();
+    hydrateArchive(data);
+    saveArchiveCache(data);
+  } catch (error) {
+    if (!state.data) {
+      console.error("Could not load the directions archive.", error);
+      elements.resultCount.textContent = "ARCHIVE ERROR";
+      elements.loadError.hidden = false;
+    } else {
+      console.warn("Using the cached archive while offline.", error);
+      elements.resultCount.textContent = `${String(getEntries().length).padStart(3, "0")} ENTRIES`;
     }
-    state.data = data;
-    populateClasses();
-    elements.loadError.hidden = true;
-    render();
-  })
-  .catch((error) => {
-    console.error("Could not load the directions archive.", error);
-    elements.resultCount.textContent = "ARCHIVE ERROR";
-    elements.loadError.hidden = false;
-  });
+  }
+}
+
+loadArchive();

@@ -1,0 +1,20 @@
+{
+  "name": "Penumbra — Legacy Field Handbook",
+  "short_name": "Penumbra",
+  "description": "A local-first field handbook for route lookup in Giovia.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020404",
+  "theme_color": "#020404",
+  "lang": "en",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./penumbra-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

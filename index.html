@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="terminal">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0a0d18">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Penumbra is a local-first field handbook for exploring legacy routes in Giovia.">
     <title>Penumbra — Legacy Field Handbook</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="penumbra-icon.svg">
+    <link rel="apple-touch-icon" href="penumbra-icon.svg">
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
+    <script src="map-viewer.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#results">Skip to directions</a>
@@ -20,34 +27,51 @@
           </span>
           <span class="brand-name">PENUMBRA<span class="brand-subtitle">LEGACY CLAN / FIELD HANDBOOK</span></span>
         </a>
-        <div class="theme-control">
-          <label class="visually-hidden" for="theme-select">Choose a field guide theme</label>
-          <span class="theme-glyph" aria-hidden="true">✦</span>
-          <select id="theme-select" aria-label="Color theme">
-            <optgroup label="Night skies">
-              <option value="twilight">Twilight</option>
-              <option value="moonlit">Moonlit</option>
-              <option value="starlit">Starlit</option>
-            </optgroup>
-            <optgroup label="Realms">
-              <option value="forest">Forest</option>
-              <option value="mountain">Mountain</option>
-              <option value="town">Town</option>
-              <option value="desert">Desert</option>
-              <option value="tundra">Tundra</option>
-              <option value="underdark">Underdark</option>
-              <option value="coast">Coast</option>
-              <option value="marsh">Marsh</option>
-              <option value="ruins">Ruins</option>
-            </optgroup>
-          </select>
+        <div class="topbar-actions">
+          <button id="install-button" class="install-button" type="button" hidden>Install app</button>
+          <div class="theme-control">
+            <label class="visually-hidden" for="theme-select">Choose a field guide theme</label>
+            <span class="theme-glyph" aria-hidden="true">✦</span>
+            <select id="theme-select" aria-label="Color theme">
+              <optgroup label="Night skies">
+                <option value="terminal">Terminal</option>
+                <option value="twilight">Twilight</option>
+                <option value="moonlit">Moonlit</option>
+                <option value="starlit">Starlit</option>
+              </optgroup>
+              <optgroup label="Realms">
+                <option value="forest">Forest</option>
+                <option value="mountain">Mountain</option>
+                <option value="town">Town</option>
+                <option value="desert">Desert</option>
+                <option value="tundra">Tundra</option>
+                <option value="underdark">Underdark</option>
+                <option value="coast">Coast</option>
+                <option value="marsh">Marsh</option>
+                <option value="ruins">Ruins</option>
+              </optgroup>
+            </select>
+          </div>
         </div>
       </header>
 
       <main>
-        <figure class="atlas-hero">
-          <img src="./penumbra-atlas-4k.svg" alt="A cartographer-style map of Giovia, a continent in the realm of TERA (Thod Empire Reform Authority)">
-        </figure>
+        <section class="map-viewer" aria-label="Realm map viewer">
+          <div class="map-viewer-heading">
+            <div>
+              <p class="eyebrow">LEGACY CLAN <span>//</span> REALM ATLAS</p>
+              <h2>Maps of <em>Giovia.</em></h2>
+            </div>
+            <div class="map-viewer-controls">
+              <span id="map-count" class="map-count" aria-live="polite">1 / 10</span>
+              <button class="map-arrow" type="button" data-map-step="-1" aria-label="Previous map">←</button>
+              <button class="map-arrow" type="button" data-map-step="1" aria-label="Next map">→</button>
+            </div>
+          </div>
+          <div id="map-track" class="map-track" tabindex="0" aria-label="Maps. Scroll horizontally or use the arrow keys to browse."></div>
+          <nav id="map-index" class="map-index" aria-label="Choose a realm map"></nav>
+          <p id="map-description" class="map-description" aria-live="polite"></p>
+        </section>
 
         <section class="intro" aria-labelledby="page-title">
           <p class="eyebrow">LEGACY CLAN <span>//</span> GIOVIA FIELD GUIDE</p>
